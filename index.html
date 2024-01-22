@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Data</title>
+    <style>
+        body {
+            background-color: black;
+            color: greenyellow;
+            font-family: Arial, sans-serif;
+        }
+        #dataContainer {
+            white-space: pre-wrap; /* Keeps the format of JSON */
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1>Live Data Stream</h1> -->
+    <div id="dataContainer"></div>
+
+    <script>
+        const eventSource = new EventSource('http://localhost:7007/live/H1tsm4vA2');
+
+        eventSource.onmessage = function(event) {
+            const newData = JSON.parse(event.data);
+            const dataContainer = document.getElementById('dataContainer');
+            // Append new data to the dataContainer
+            dataContainer.innerHTML += `<pre>${JSON.stringify(newData, null, 2)}</pre>`;
+        };
+
+        eventSource.onerror = function(error) {
+            console.error('EventSource failed:', error);
+            eventSource.close();
+        };
+    </script>
+</body>
+</html>
