@@ -3,7 +3,7 @@ const app = express();
 app.use(express.json());
 const PORT = 7007;
 import { fetchData } from "./util/fetchAPI";
-import path from "path";
+// import path from "path";
 
 // Endpoint for Server-Sent Events
 app.get("/live/:id", async (req, res) => {
@@ -42,21 +42,22 @@ app.get("/rest/:id", async (req, res) => {
   // Function to send data to the client
   //@ts-ignore
 
-  let result = await fetchData(req.params.id, req.query.auth)
-    //@ts-ignore
-    .then((data) => {
-      res.write(`data: ${JSON.stringify(data.rows)}\n\n`);
-    })
-    //@ts-ignore
-    .catch((error) => {
-      res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
-    });
+  let result = await fetchData(req.params.id, req.query.auth);
+  // //@ts-ignore
+  // .then((data) => {
+  //   res.write(`data: ${JSON.stringify(data.rows)}\n\n`);
+  // })
+  // //@ts-ignore
+  // .catch((error) => {
+  //   res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+  // });
 
-  res.send(result);
+  res.json(result.rows);
 });
 
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "../", "index.html"));
+  // res.sendFile(path.join(__dirname, "../", "index.html"));
+  res.json({ this: "is true" });
 });
 
 app.listen(PORT, () => {

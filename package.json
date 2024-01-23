@@ -2,7 +2,9 @@
   "name": "caster",
   "version": "1.0.0",
   "description": "this app will fetc data from the main app and send it to the broadcaster every second ",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": "dist/index.js", 
+
   "scripts": {
     "build": "rm -rf ./dist/* && npx tsc",
     "clean": "rm -rf ./dist/*",
